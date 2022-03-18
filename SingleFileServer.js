@@ -6,6 +6,8 @@ let hostname = 'localhost';
 
 const app = express(); //creates a new Express Application
 app.use(morgan('dev')); //For better logging, we use morgan
+app.use(express.urlencoded({extended:true}));
+app.use(express.json());
 
 app.use(express.static('public_html'));// Static server use the folder 'public_html'
 
@@ -40,9 +42,42 @@ app.get('/user/:id',function(req,res){ //REST get (one) method
         res.status(404); //404 = Not Found
         res.send({msg:'User not found.'}); //send a message
     }
-
     res.end(); //ends the response (only 1 end per response)
-});
+}); //end of app.get(user/id)
+
+app.post('/user',function(req,res){
+    let newuser = {}; //empty obj
+    newuser.name = req.body.txt_name;
+    newuser.login = req.body.txt_login;
+    newuser.password = req.body.txt_pass;
+    newuser.permission = parseInt(req.body.txt_perm);
+    if(users.length>0)
+       newuser._id = (users[users.length-1]._id)+1;
+    else newuser._id = 1;
+    
+    users.push(newuser);
+
+    res.redirect('users.html');
+}); //end of app.post(user)
+
+app.get('/deluser/:id',function(req,res){
+    //URL parameter always on req.params.<name>
+    let id = parseInt( req.params.id ); //get param and convert to int    
+
+    let index = -1;
+    for(let i=0; i<users.length; i++){ //searches for the id
+        if(users[i]._id === id ){ //found id...
+            index = i; //... save array index
+            break;
+        }
+    }
+
+    if(index >= 0){ //Index valid because we found Id
+        users.splice(index,1); //remove 1 element at the index
+    }
+    res.redirect('../users.html');
+}); //end of app.get(deluser)
+
 
 app.listen(port,hostname,function(){ // Listen to client requests in hostname:port
     console.log(`Server Running on ${hostname}:${port}...`);
