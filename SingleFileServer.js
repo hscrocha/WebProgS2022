@@ -51,12 +51,20 @@ app.post('/user',function(req,res){
     newuser.login = req.body.txt_login;
     newuser.password = req.body.txt_pass;
     newuser.permission = parseInt(req.body.txt_perm);
-    if(users.length>0)
-       newuser._id = (users[users.length-1]._id)+1;
-    else newuser._id = 1;
-    
-    users.push(newuser);
 
+    if(req.body.txt_id){
+        //update user
+        console.log('Update user');
+    }
+    else{
+        //insert user
+        
+        //Generates the ID
+        if(users.length>0) newuser._id = (users[users.length-1]._id)+1;
+        else newuser._id = 1;
+        
+        users.push(newuser); //inserts user into our array
+    }
     res.redirect('users.html');
 }); //end of app.post(user)
 
@@ -77,6 +85,21 @@ app.get('/deluser/:id',function(req,res){
     }
     res.redirect('../users.html');
 }); //end of app.get(deluser)
+
+app.post('/updateuser',function(req,res){
+    //Not being called, the fronst sends to the same function as the create new user
+
+    let user = {}; // empty object
+    user.name = req.body.txt_name; 
+    user.login = req.body.txt_login; 
+    user.password = req.body.txt_pass;
+    user.permission = parseInt(req.body.txt_perm);
+    user._id = parseInt(req.body.txt_id);
+    for(let i=0; i<users.length; i++){//find the user
+       if(users[i]._id===user._id){ users[i] = user; break; }
+    }
+    res.redirect('user.html'); // go to 'user.html'
+}); // end of app.post(updateuser)
 
 
 app.listen(port,hostname,function(){ // Listen to client requests in hostname:port

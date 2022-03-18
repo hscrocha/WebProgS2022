@@ -36,7 +36,7 @@
         <h1> CRUD Users </h1>
       </div>
       <div class="col">
-        <a href="#MainForm" class="btn btn-primary pe-2 ps-2" data-bs-toggle="modal" data-bs-target="#ModalForm"> 
+        <a href="#MainForm" onclick='insertForm();' class="btn btn-primary pe-2 ps-2" data-bs-toggle="modal" data-bs-target="#ModalForm"> 
           <span class="bi-plus-square-fill"></span> 
           New User 
         </a>
@@ -64,13 +64,13 @@
           <!-- Modal body -->
           <div class="modal-body">
             <div class="container" id="MainForm">
-              <!--
-              <div class="row mb-2">
+              
+              <div class="row mb-2" id="div_form_id" style="display:flex;">
                 <label class="col-form-label col-md-3" for="txt_id"> ID: </label>
                 <div class="col-12 col-md">
-                  <input class="form-control" type="text" name="txt_id" id="txt_id" autocomplete="off" />
+                  <input class="form-control" type="text" name="txt_id" id="txt_id" autocomplete="off" readonly />
                 </div>
-              </div> -->
+              </div> 
               <div class="row mb-2">
                 <label class="col-form-label col-md-3" for="txt_name"> Name: </label>
                 <div class="col-12 col-md">
@@ -92,8 +92,8 @@
               <div class="row mb-2">
                 <label class="col-form-label col-md-3" for="txt_perm"> Permission: </label>
                 <div class="col-12 col-md">
-                  <select class="form-select" name="txt_perm">
-                    <option selected value="2">Normal</option>
+                  <select class="form-select" name="txt_perm" id="txt_perm">
+                    <option value="2">Normal</option>
                     <option value="1">Admin</option>
                   </select>
                 </div>
@@ -104,8 +104,8 @@
           <!-- Modal footer -->
           <div class="modal-footer">
             <button type="submit" class="btn btn-success me-2"> Save </button>
-            <button type="reset" class="btn btn-warning me-2"> Clear </button>
-            <button type="button" class="btn btn-danger me-2" data-bs-dismiss="modal">Close</button>
+            <button type="reset" class="btn btn-warning me-2" id="clear_button"> Clear </button>
+            <button type="button" class="btn btn-danger me-2" data-bs-dismiss="modal">Cancel</button>
           </div>
         </form>
         
@@ -118,6 +118,7 @@
   </div>
   
   <script>
+
     function conf(){
       return window.confirm('Are you sure you want to delete?');
     }
@@ -148,11 +149,12 @@
           for(let i=0; i<users.length; i++){
             out += `
             <tr>
-              <td> <a href="/deluser/${users[i]._id}" onclick="return conf();"><span class="text-danger bi-x-circle-fill"></span></a> </td>
+              <td> <a href="/deluser/${users[i]._id}" onclick="return conf();"><span class="text-danger bi-x-circle-fill"></span></a>  &nbsp; 
+                <a href="#MainForm" onclick="editForm(${i})" data-bs-toggle="modal" data-bs-target="#ModalForm"> <span class="bi-pencil-square text-info"></span></a>  </td>
               <td> ${users[i]._id} </td>
               <td> ${users[i].name} </td>
               <td> ${users[i].login} </td>
-              <td> ${users[i].permission===1?'Adm':'Normal'} </td>
+              <td> ${users[i].permission===1?'Admin':'Normal'} </td>
             </tr>`;
           }
           out+= `</tbody>
@@ -162,6 +164,23 @@
       }
       
       getUsers();
+
+    function insertForm(){
+       document.getElementById("ModalTitle").innerHTML = 'Create New User';
+       document.getElementById("div_form_id").style = 'display:none;';
+       document.getElementById("txt_id").value = '';
+       document.getElementById("clear_button").style = 'display:flex;';
+    }
+    function editForm(pos){
+       document.getElementById("ModalTitle").innerHTML = 'Edit User';
+       document.getElementById("div_form_id").style = 'display:flex;';
+       document.getElementById("txt_id").value = users[pos]._id;
+       document.getElementById("txt_name").value = users[pos].name;
+       document.getElementById("txt_login").value = users[pos].login;
+       document.getElementById("txt_perm").value = users[pos].permission;
+
+       document.getElementById("clear_button").style = 'display:none;';       
+    }
     </script>
   </body>
   </html>
