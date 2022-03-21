@@ -171,6 +171,7 @@
        document.getElementById("txt_id").value = '';
        document.getElementById("txt_name").value = '';
        document.getElementById("txt_login").value = '';
+       document.getElementById("txt_pass").value = '';
        document.getElementById("txt_perm").value = '';
        document.getElementById("clear_button").style = 'display:flex;';
     }
@@ -180,6 +181,7 @@
        document.getElementById("txt_id").value = users[pos]._id;
        document.getElementById("txt_name").value = users[pos].name;
        document.getElementById("txt_login").value = users[pos].login;
+       document.getElementById("txt_pass").value = '';
        document.getElementById("txt_perm").value = users[pos].permission;
 
        document.getElementById("clear_button").style = 'display:none;';       
