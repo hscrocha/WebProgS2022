@@ -87,7 +87,7 @@ app.get('/deluser/:id',function(req,res){
 }); //end of app.get(deluser)
 
 app.post('/updateuser',function(req,res){
-    //Not being called, the fronst sends to the same function as the create new user
+    //Not being called, the front-end sends to the same function as the create new user
 
     let user = {}; // empty object
     user.name = req.body.txt_name; 
