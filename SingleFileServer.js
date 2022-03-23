@@ -55,6 +55,7 @@ app.post('/user',function(req,res){
     if(req.body.txt_id){
         //update user
         console.log('Update user');
+        
     }
     else{
         //insert user
