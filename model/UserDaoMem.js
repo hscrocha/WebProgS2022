@@ -20,6 +20,7 @@ exports.create = function(newuser){
     else
        newuser._id = 1;
     exports.users.push(newuser);
+    return newuser;
 }
 
 exports.del = function(id){
