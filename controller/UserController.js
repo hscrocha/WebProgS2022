@@ -1,8 +1,9 @@
-const dao = require('../model/UserDaoMem');
+const dao = require('../model/UserDaoMongo');
+const passUtil = require('../util/PasswordUtil');
 
-exports.getAll = function(req,res){ // REST get (all) method
+exports.getAll = async function(req,res){ // REST get (all) method
     res.status(200); // 200 = Ok
-    res.send(dao.readAll()); //send the users back to the client
+    res.send(await dao.readAll()); //send the users back to the client
     res.end(); 
 }
 
@@ -26,7 +27,7 @@ exports.postCreateOrUpdate = function(req,res){
     let newuser = {}; //empty obj
     newuser.name = req.body.txt_name;
     newuser.login = req.body.txt_login;
-    newuser.password = req.body.txt_pass;
+    newuser.password = passUtil.hashPassword(req.body.txt_pass);
     newuser.permission = parseInt(req.body.txt_perm);
 
     if(req.body.txt_id){
