@@ -17,7 +17,9 @@ exports.readAll = async function(){
     return users;
 }
 
-exports.read = function(id){
+exports.read = async function(id){
+    let user = await userModel.findById(id);
+    return user;
 }
 
 exports.create = async function(newuser){
@@ -26,8 +28,14 @@ exports.create = async function(newuser){
     return user;
 }
 
-exports.del = function(id){
+exports.del = async function(id){
+    let user = await userModel.findByIdAndDelete(id);
+    return user;
 } 
+
+exports.deleteAll = async function(){
+    await userModel.deleteMany();
+}
 
 exports.update = function(user){
     //leave as homework
