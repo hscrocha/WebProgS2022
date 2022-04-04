@@ -9,7 +9,7 @@ exports.getAll = async function(req,res){ // REST get (all) method
 
 exports.get = function(req,res){ //REST get (one) method
     //URL parameter always on req.params.<name>
-    let id = parseInt( req.params.id ); //get param and convert to int
+    let id = req.params.id; //get param and convert to int
     let found = dao.read(id);
 
     if(found !== null){ //We found the requested user
@@ -44,7 +44,7 @@ exports.postCreateOrUpdate = function(req,res){
 
 exports.deleteOne = function(req,res){
     //URL parameter always on req.params.<name>
-    let id = parseInt( req.params.id ); //get param and convert to int    
+    let id = req.params.id; //get param and convert to int    
     dao.del(id);
     res.redirect('../users.html');
 }
