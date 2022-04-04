@@ -48,3 +48,18 @@ exports.deleteOne = function(req,res){
     dao.del(id);
     res.redirect('../users.html');
 }
+
+exports.login = async function(req, res){
+    let plogin = req.body.txt_login;
+    let pwd = passUtil.hashPassword(req.body.txt_pass);
+    let user = await dao.login(plogin, pwd);
+    console.log(user);
+    if(user != null){ //login successful
+        //Save the user in the session
+        req.session.user = user;
+        res.redirect('index.html');
+    }
+    else{ //incorrect login or password
+        res.redirect('login.html?error=1');
+    }
+}

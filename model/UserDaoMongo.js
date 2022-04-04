@@ -41,4 +41,7 @@ exports.update = function(user){
     //leave as homework
 }
 
-
+exports.login = async function(plogin, pwd){
+    let user = await userModel.findOne({login:plogin, password:pwd});
+    return user;
+}
