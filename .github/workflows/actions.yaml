@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - main
-      - dev #add here all branches
+      - ci-setup-branch #add here all branches
   pull_request:
     branches:
       - main #for pull-requests usually only the main is enough
@@ -24,8 +24,18 @@ jobs:
           node-version: '16' # Node version 16
           cache: 'npm'
           
+      #- name: Start MongoDB
+      #  uses: supercharge/mongodb-github-action@1.7.0
+      #  with:
+      #     mongodb-version: 'latest' 
+           
+      - name: Create mongoDB Docker container      
+        run: sudo docker run -d -p 27017:27017  -e MONGO_INITDB_ROOT_USERNAME=adm -e MONGO_INITDB_ROOT_PASSWORD=secret mongo:latest
+           
       - name: Install packages
         run: npm ci
-    
+          
       - name: Tests
         run: npm test -- --ci --forceExit --collectCoverage  
+        env: #Sets an environment variable 
+          CI: true 
