@@ -1,0 +1,31 @@
+name: Continous Integration
+on:
+  # Set up a CI Server to execute the jobs pipeline below when 
+  # a push or pull request is made at the main branch
+  push:
+    branches:
+      - main
+      - dev #add here all branches
+  pull_request:
+    branches:
+      - main #for pull-requests usually only the main is enough
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest # Commands must be executed on a Linux Ubuntu OS
+
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v2 # Checkout the received code 
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: '16' # Node version 16
+          cache: 'npm'
+          
+      - name: Install packages
+        run: npm ci
+    
+      - name: Tests
+        run: npm test -- --ci --forceExit --collectCoverage  
