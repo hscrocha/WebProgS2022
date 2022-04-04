@@ -18,15 +18,28 @@
     <div class="container-fluid">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="index.html">Home</a>
+          <a class="nav-link" href="index.html"><span class="bi-house-fill"></span> Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="#">Users</a>
+          <a class="nav-link active" href="users.html">Users</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Links</a>
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+        <li id="menu-admin" style="display:none" class="nav-item">
+          <a class="nav-link" href="admin.html">Admin</a>
         </li>
       </ul>
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><span class="bi-person-circle"></span> Account</a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li id="menu-login"><a class="dropdown-item" href="/login.html">Login</a></li>
+                <li id="menu-register"><a class="dropdown-item" href="/register.html">Register</a></li>
+                <li style="display:none;" id="menu-logout"><a class="dropdown-item" href="/logout">Logout</a></li>
+            </ul>
+        </li>
+    </ul>    
     </div>
   </nav>
   
@@ -118,7 +131,6 @@
   </div>
   
   <script>
-
     function conf(){
       return window.confirm('Are you sure you want to delete?');
     }
@@ -143,6 +155,7 @@
             <th> Name </th>
             <th> Login </th>
             <th> Permission </th>
+            <th> Created </th>
           </tr>
         </thead>
         <tbody>`;
@@ -155,6 +168,7 @@
               <td> ${users[i].name} </td>
               <td> ${users[i].login} </td>
               <td> ${users[i].permission===1?'Admin':'Normal'} </td>
+              <td> ${new Date(users[i].creation).toLocaleString()} </td>
             </tr>`;
           }
           out+= `</tbody>
