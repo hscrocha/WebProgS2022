@@ -95,5 +95,22 @@
   <p>Loyola University Maryland -- CS Department</p>
 </div>
 
+<script>
+  async function checkLoggedUser(){ 
+    let response = await fetch('/loggedUser');
+    let user = await response.json();
+    if(user != null){
+       document.getElementById("menu-logout").style="display:inherit;";
+       document.getElementById("menu-login").style="display:none;";
+       document.getElementById("menu-register").style="display:none;";
+
+       if(user.permission === 1)
+          document.getElementById("menu-admin").style="display:inherit;";
+    }
+  }
+
+  checkLoggedUser();
+</script>
+
 </body>
 </html>

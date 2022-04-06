@@ -26,6 +26,8 @@ app.post('/user',userCont.postCreateOrUpdate);
 app.get('/deluser/:id',userCont.deleteOne); 
 app.post('/updateuser',userCont.postCreateOrUpdate);
 app.post('/dologin',userCont.login); 
+app.get('/loggedUser',userCont.loggedUser);
+app.get('/logout',userCont.logout);
 
 // Example Actions
 //app.get('/example', exCont.getAll);

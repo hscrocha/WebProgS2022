@@ -45,7 +45,11 @@ exports.postCreateOrUpdate = function(req,res){
 exports.deleteOne = function(req,res){
     //URL parameter always on req.params.<name>
     let id = req.params.id; //get param and convert to int    
-    dao.del(id);
+    
+    let user = req.session.user;
+    if(user!=null && user.permission===1){    
+        dao.del(id);
+    }
     res.redirect('../users.html');
 }
 
@@ -55,6 +59,7 @@ exports.login = async function(req, res){
     let user = await dao.login(plogin, pwd);
     console.log(user);
     if(user != null){ //login successful
+        user.password = null; //for security
         //Save the user in the session
         req.session.user = user;
         res.redirect('index.html');
@@ -62,4 +67,15 @@ exports.login = async function(req, res){
     else{ //incorrect login or password
         res.redirect('login.html?error=1');
     }
+}
+
+exports.loggedUser = function(req,res){
+    res.status(200); // 200 = Ok
+    res.send( req.session.user ); //send the logged user
+    res.end(); 
+}
+
+exports.logout = function(req, res){
+    req.session.user = null;
+    res.redirect('index.html');
 }

@@ -31,14 +31,14 @@
       </ul>
       <ul class="navbar-nav ms-auto">
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><span class="bi-person-circle"></span> Account</a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li id="menu-login"><a class="dropdown-item" href="/login.html">Login</a></li>
-                <li id="menu-register"><a class="dropdown-item" href="/register.html">Register</a></li>
-                <li style="display:none;" id="menu-logout"><a class="dropdown-item" href="/logout">Logout</a></li>
-            </ul>
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><span class="bi-person-circle"></span> Account</a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <li id="menu-login"><a class="dropdown-item" href="/login.html">Login</a></li>
+            <li id="menu-register"><a class="dropdown-item" href="/register.html">Register</a></li>
+            <li style="display:none;" id="menu-logout"><a class="dropdown-item" href="/logout">Logout</a></li>
+          </ul>
         </li>
-    </ul>    
+      </ul>    
     </div>
   </nav>
   
@@ -47,46 +47,61 @@
       <div class="col">
         <h1> Login </h1>
       </div>
+    </div>
   </div>
-</div>
   
   <form class="was-validated" method="post" action="/dologin">
     <div class="container" id="MainForm">
-        <div class="row mb-2">
-            <label class="col-form-label col-12 col-md-1" for="txt_login"> Login: </label>
-            <div class="col-12 col-md-4">
-                <input class="form-control" type="email" name="txt_login" id="txt_login" required />
-            </div>
+      <div class="row mb-2">
+        <label class="col-form-label col-12 col-md-1" for="txt_login"> Login: </label>
+        <div class="col-12 col-md-4">
+          <input class="form-control" type="email" name="txt_login" id="txt_login" required />
         </div>
-        <div class="row mb-2">
-            <label class="col-form-label col-12 col-md-1" for="txt_pass"> Password: </label>
-            <div class="col-12 col-md-4">
-                <input class="form-control" type="password" name="txt_pass" id="txt_pass" minlength="6" required />
-            </div>
+      </div>
+      <div class="row mb-2">
+        <label class="col-form-label col-12 col-md-1" for="txt_pass"> Password: </label>
+        <div class="col-12 col-md-4">
+          <input class="form-control" type="password" name="txt_pass" id="txt_pass" minlength="6" required />
         </div>
-        <div class="row mb-2">
-            <div class="offset-md-1 col-12 col-md-2 d-grid">
-                <button type="submit" class="btn btn-success btn-block"> Login </button>
-            </div>
-            <div class="col-12 col-md-2 d-grid">
-                <button type="reset" class="btn btn-warning btn-block"> Clear </button>
-            </div>
+      </div>
+      <div class="row mb-2">
+        <div class="offset-md-1 col-12 col-md-2 d-grid">
+          <button type="submit" class="btn btn-success btn-block"> Login </button>
         </div>
+        <div class="col-12 col-md-2 d-grid">
+          <button type="reset" class="btn btn-warning btn-block"> Clear </button>
+        </div>
+      </div>
     </div>  
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6" id="msg-display">
+        </div>
+      </div>
+    </div>
     
-</form>  
-
-
+  </form>  
+  
+  
   <div class="mt-5 p-4 bg-dark text-white text-center">
     <p>Loyola University Maryland -- CS Department</p>
   </div>
-
-  <script>
-     const params = new URLSearchParams(window.location.search);    
-     let error = params.get('error');
-     if(error === '1') window.alert('Login or Password Incorrect');
-  </script>
-
-  </body>
-  </html>
   
+  <script>
+    const params = new URLSearchParams(window.location.search);    
+    let error = params.get('error');
+    let msg = null;
+    if(error === '1'){
+      msg = `
+         <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>Error!</strong> Incorrect Login or Password.
+          </div>
+      `;
+       document.getElementById("msg-display").innerHTML = msg;
+    } 
+    //window.alert('Login or Password Incorrect');
+  </script>
+  
+</body>
+</html>
