@@ -54,52 +54,43 @@
   </footer>
   
   <script type="text/babel">
-    const myOldElement = React.createElement('h1',{},'Hello React');
-    let myVar = 1;
-    const newElement = ( 
-      <div> 
-        <h1> Hello JSX React. </h1> 
-        <h2> Web Programming {++myVar}  </h2>
-        <h3> Today is {(new Date()).toLocaleString()}  </h3>
-      </div> 
-    );
-    function Hello(){
-        return <h1> Hello React Component. </h1>;
+
+    const users = [ //For this phase, we will store the data in memory, on the server
+    { _id:1,name:'Henrique Rocha', login:'hsrocha@loyola.edu', password:'123456',permission:1},
+    { _id:2,name:'John Dooey', login:'jd@aol.com', password:'123456', permission:2},
+    { _id:3,name:'Jane Doe', login:'janed@compuserve.com' ,password:'123456', permission:2}
+    ];
+
+    function UserRow(props){
+       return (
+          <tr>
+            <td> {props.user._id} </td>
+            <td> {props.user.name} </td>
+            <td> {props.user.login} </td>
+            <td> {props.user.permission} </td>
+          </tr>
+       );
     }
-    function Course(){
-      return <h2> CS 456 - Web Programming </h2>;
-    }
-    function SayHello(props){
-       return <h3> Hello {props.firstname} {props.lastname}, welcome to the webapp. </h3>;
-    }
-    function Heading(){
+    function UserTable(){
         return (
-          <>
-             <Hello />
-             <Course />
-          </>
+          <table className="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th> ID </th>
+                <th> Name </th>
+                <th> Login </th>
+                <th> Permission </th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map(singleuser => 
+                <UserRow user={singleuser} /> )}
+            </tbody>
+          </table>
         );
     }
-    function UserDisplay(props){
-      let myPermission = '';
-      if(props.user.permission===1)
-        myPermission = 'Admin';
-      else 
-        myPermission = 'Normal';
 
-      return (
-        <ul>
-           <li> Name: {props.user.name} </li>
-           <li> Login: {props.user.login} </li>
-           <li> Permission: {myPermission} </li> 
-        </ul>
-      );
-    }
-
-    const varUser = {_id:1, name:'Henrique Rocha', 
-        login:'hsrocha@loyola.edu',permission:1};
-
-    ReactDOM.render(<UserDisplay user={varUser} />,
+    ReactDOM.render(<UserTable />,
         document.getElementById('root'));
   </script>
   
