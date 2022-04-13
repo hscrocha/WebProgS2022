@@ -54,66 +54,35 @@
   </footer>
   
   <script type="text/babel">
-
-    const users = [ //For this phase, we will store the data in memory, on the server
-    { _id:1,name:'Henrique Rocha', login:'hsrocha@loyola.edu', password:'123456',permission:1},
-    { _id:2,name:'John Dooey', login:'jd@aol.com', password:'123456', permission:2},
-    { _id:3,name:'Jane Doe', login:'janed@compuserve.com' ,password:'123456', permission:2}
-    ];
-
-    function UserRow(props){
-       return (
-          <tr>
-            <td> {props.user._id} </td>
-            <td> {props.user.name} </td>
-            <td> {props.user.login} </td>
-            <td> {props.user.permission===1?'Admin':'Normal'} </td>
-          </tr>
-       );
+    function WelcomeUser(props){
+      return <h2> Welcome {props.user.name} </h2>;
     }
-    function UserTable(props){
-      /*for(let singleuser of users){
-        <UserRow user={singleuser} />
-      }*/
-        return (
-          <table className="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th> ID </th>
-                <th> Name </th>
-                <th> Login </th>
-                <th> Permission </th>
-              </tr>
-            </thead>
-            <tbody>
-              {props.users.map(singleuser => 
-                <UserRow user={singleuser} /> )}
-            </tbody>
-          </table>
-        );
+    function WelcomeGuest(){
+      return <h2> Welcome Guest. Please register <a>here</a>. </h2>;
     }
-    function Loading(){
-       return (
-       <>
-          <h3 className="text-primary"> Loading... 
-          <div className="spinner-border text-primary"></div></h3>
-       </>
-       );
+    function Welcome(props){
+      if(props.user) return <WelcomeUser user={props.user} />;
+      else return <WelcomeGuest />;
     }
-    async function getUsers(){ 
-      let response = await fetch('/user'); //ask the back-end Node.js for user data
-      const users = await response.json(); //convert data to JSON format
+    function MainMenu(props){
+      return (
+          <ul>
+            <li><a href="#"> Home </a></li>
+            <li><a href="#"> Users </a></li>
+            <li><a href="#"> Contact </a></li>
+            {props.user ? <li><a href="#"> Account </a></li> 
+            : <li><a href="#"> Login </a></li>} 
 
-      ReactDOM.render(<UserTable users={users}/>,
-          document.getElementById('root') );
+            {props.user && props.user.permission===1 &&
+            <li><a href="#"> Admin </a></li> }
+          </ul>
+      );
     }
 
-    ReactDOM.render(<Loading />,
+    const loggedUser = {_id:1, name:'Rick Sanchez', permission:1};
+
+    ReactDOM.render(<MainMenu user={loggedUser} />,
         document.getElementById('root'));
-
-    
-    //getUsers();
-    setTimeout(getUsers, 2000); //waits 2 seconds before calling getUsers, do not use in your project this is just to display the loading
   </script>
   
 </body>
