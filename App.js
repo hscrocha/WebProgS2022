@@ -17,6 +17,7 @@ app.use(session({
     saveUninitialized: true
 }));
 
+app.use(express.static('view/build'));// Static server use the folder 'public_html'
 app.use(express.static('public_html'));// Static server use the folder 'public_html'
 
 // User Actions

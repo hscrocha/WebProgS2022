@@ -47,9 +47,9 @@ exports.deleteOne = function(req,res){
     let id = req.params.id; //get param and convert to int    
     
     let user = req.session.user;
-    if(user!=null && user.permission===1){    
+    //if(user!=null && user.permission===1){ //extra layer of security using session, not always necessary   
         dao.del(id);
-    }
+    //}
     res.redirect('../users.html');
 }
 
