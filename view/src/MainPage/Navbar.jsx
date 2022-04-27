@@ -10,7 +10,7 @@ export default function Navbar(){
               <NavLink to="/" className="nav-link"><span className="bi-house-fill"></span> Home</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="user.html" className="nav-link">Users</NavLink>
+              <NavLink to="userpage" className="nav-link">Users</NavLink>
             </li>
             <li className="nav-item">
               <NavLink to="contact.html" className="nav-link">Contact</NavLink>
@@ -23,7 +23,7 @@ export default function Navbar(){
             <li className="nav-item dropdown">
               <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><span className="bi-person-circle"></span> Account</a>
               <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li id="menu-login"><a className="dropdown-item" href="/login.html">Login</a></li>
+                <li id="menu-login"><NavLink className="dropdown-item" to="loginpage">Login</NavLink></li>
                 <li id="menu-register"><a className="dropdown-item" href="/register.html">Register</a></li>
                 <li id="menu-logout"><a className="dropdown-item" href="/logout">Logout</a></li>
               </ul>

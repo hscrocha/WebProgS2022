@@ -1,6 +1,7 @@
 const express = require('express'); //import express
 const morgan = require('morgan'); //import morgan for logging
 const session = require('express-session');
+const cors = require('cors');
 const memorystore = require('memorystore')(session);
 const userCont = require('./controller/UserController');
 
@@ -8,6 +9,7 @@ const app = express(); //creates a new Express Application
 app.use(morgan('dev')); //For better logging, we use morgan
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
+app.use(cors());
 
 app.use(session({
     secret: 'Pineapple - Guava - Orange',
