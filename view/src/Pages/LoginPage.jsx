@@ -5,10 +5,10 @@ export default function LoginPage(){
     return (
     <div className="container">
         <h2> Login </h2>
-    <form className="was-validated" method="post" action="/dologin">
+    <form className="" method="post" action="/dologin">
         <div className="container" id="MainForm">
           <div className="row mb-2">
-            <label className="col-form-label col-12 col-md-1" for="txt_login"> Login: </label>
+            <label className="col-form-label col-12 col-md-1" htmlFor="txt_login"> Login: </label>
             <div className="col-12 col-md-4">
               <input className="form-control" type="email" name="txt_login" id="txt_login" required />
             </div>

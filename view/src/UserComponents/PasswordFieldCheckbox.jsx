@@ -13,8 +13,8 @@ export default function PasswordField(){
           <input className="form-control" type={visible?"text":"password"} name="txt_pass" id="txt_pass" minLength="6" required />
         </div>
         <div className="col col-form-label">
-            <span style={{marginLeft:'-50px'}} className={visible?"bi-eye-slash":"bi-eye"} 
-            onClick={toggleVisibility}></span>
+            <input className="form-check-input" type="checkbox" id="chk_vis" onClick={toggleVisibility} /> 
+            <label htmlFor="chk_vis">Hide/Display</label>
         </div>
     </div>
     );
