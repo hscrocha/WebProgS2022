@@ -4,6 +4,7 @@ const session = require('express-session');
 const cors = require('cors');
 const memorystore = require('memorystore')(session);
 const userCont = require('./controller/UserController');
+const langCont = require('./controller/LanguageController');
 
 const app = express(); //creates a new Express Application
 app.use(morgan('dev')); //For better logging, we use morgan
@@ -32,6 +33,8 @@ app.post('/dologin',userCont.login);
 app.get('/loggedUser',userCont.loggedUser);
 app.get('/logout',userCont.logout);
 
+app.get('/changelang/:lang',langCont.changeLanguage);
+app.get('/language',langCont.getLanguage);
 // Example Actions
 //app.get('/example', exCont.getAll);
 
